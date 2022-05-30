@@ -11,7 +11,7 @@ public enum Cell {
         this.symbol = symbol;
     }
 
-    public boolean isMarked() {
+    public boolean isTaken() {
         return this != BLANK;
     }
 
