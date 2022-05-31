@@ -9,8 +9,7 @@ import Game.*;
 /**
  * Unit test for simple App.
  */
-public class GameWinConditionTest 
-{
+public class GameWinConditionTest  {
 
     // 4x3 == size 4x4 && win condition 3 same cells next to each other
 
@@ -28,11 +27,11 @@ public class GameWinConditionTest
         // |   |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 1);
-        game.placeElement(Cell.X, 1, 2);
-        game.placeElement(Cell.X, 1, 3);
+        game.setElement(Mark.X, 1, 1);
+        game.setElement(Mark.X, 1, 2);
+        game.setElement(Mark.X, 1, 3);
 
-        assertTrue(game.checkHorizontal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -49,11 +48,11 @@ public class GameWinConditionTest
         // |   |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 2);
-        game.placeElement(Cell.X, 1, 3);
-        game.placeElement(Cell.X, 1, 4);
+        game.setElement(Mark.X, 1, 2);
+        game.setElement(Mark.X, 1, 3);
+        game.setElement(Mark.X, 1, 4);
 
-        assertTrue(game.checkHorizontal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -70,11 +69,11 @@ public class GameWinConditionTest
         // |   |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 1);
-        game.placeElement(Cell.X, 2, 1);
-        game.placeElement(Cell.X, 3, 1);
+        game.setElement(Mark.X, 1, 1);
+        game.setElement(Mark.X, 2, 1);
+        game.setElement(Mark.X, 3, 1);
 
-        assertTrue(game.checkVertical(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -91,11 +90,11 @@ public class GameWinConditionTest
         // | X |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 1);
-        game.placeElement(Cell.X, 2, 1);
-        game.placeElement(Cell.X, 4, 1);
+        game.setElement(Mark.X, 1, 1);
+        game.setElement(Mark.X, 2, 1);
+        game.setElement(Mark.X, 4, 1);
 
-        assertFalse(game.checkVertical(Cell.X));
+        assertFalse(game.checkWin(Mark.X));
     }
 
     @Test
@@ -112,11 +111,11 @@ public class GameWinConditionTest
         // |   |   | X |   |
         // -----------------
 
-        game.placeElement(Cell.X, 2, 1);
-        game.placeElement(Cell.X, 3, 2);
-        game.placeElement(Cell.X, 4, 3);
+        game.setElement(Mark.X, 2, 1);
+        game.setElement(Mark.X, 3, 2);
+        game.setElement(Mark.X, 4, 3);
 
-        assertTrue(game.checkDiagonal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -133,11 +132,11 @@ public class GameWinConditionTest
         // |   |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 2);
-        game.placeElement(Cell.X, 2, 3);
-        game.placeElement(Cell.X, 3, 4);
+        game.setElement(Mark.X, 1, 2);
+        game.setElement(Mark.X, 2, 3);
+        game.setElement(Mark.X, 3, 4);
 
-        assertTrue(game.checkDiagonal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -152,11 +151,11 @@ public class GameWinConditionTest
         // |   |   | X |
         // -------------
 
-        game.placeElement(Cell.X, 1, 1);
-        game.placeElement(Cell.X, 2, 2);
-        game.placeElement(Cell.X, 3, 3);
+        game.setElement(Mark.X, 1, 1);
+        game.setElement(Mark.X, 2, 2);
+        game.setElement(Mark.X, 3, 3);
 
-        assertTrue(game.checkDiagonal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -173,12 +172,12 @@ public class GameWinConditionTest
         // | X |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 4);
-        game.placeElement(Cell.X, 2, 3);
-        game.placeElement(Cell.X, 3, 2);
-        game.placeElement(Cell.X, 4, 1);
+        game.setElement(Mark.X, 1, 4);
+        game.setElement(Mark.X, 2, 3);
+        game.setElement(Mark.X, 3, 2);
+        game.setElement(Mark.X, 4, 1);
 
-        assertTrue(game.checkDiagonal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -195,11 +194,11 @@ public class GameWinConditionTest
         // |   |   |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 1, 3);
-        game.placeElement(Cell.X, 2, 2);
-        game.placeElement(Cell.X, 3, 1);
+        game.setElement(Mark.X, 1, 3);
+        game.setElement(Mark.X, 2, 2);
+        game.setElement(Mark.X, 3, 1);
 
-        assertTrue(game.checkDiagonal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
@@ -216,10 +215,10 @@ public class GameWinConditionTest
         // |   | X |   |   |
         // -----------------
 
-        game.placeElement(Cell.X, 2, 4);
-        game.placeElement(Cell.X, 3, 3);
-        game.placeElement(Cell.X, 4, 2);
+        game.setElement(Mark.X, 2, 4);
+        game.setElement(Mark.X, 3, 3);
+        game.setElement(Mark.X, 4, 2);
 
-        assertTrue(game.checkDiagonal(Cell.X));
+        assertTrue(game.checkWin(Mark.X));
     }
 }

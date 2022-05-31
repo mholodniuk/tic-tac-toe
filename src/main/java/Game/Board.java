@@ -3,16 +3,20 @@ package Game;
 public class Board {
 
     private final int SIZE;
-    private Cell[][] board;
+    private Mark[][] board;
 
     public Board(int size) {
         this.SIZE = size;
-        board = new Cell[SIZE][SIZE];
+        board = new Mark[SIZE][SIZE];
         
         for(int row = 0; row < size; ++row) {
             for(int col = 0; col < size; ++col) 
-                board[row][col] = Cell.BLANK;
+                board[row][col] = Mark.BLANK;
         }
+    }
+
+    public int getBoardSize() {
+        return SIZE;
     }
 
     public void displayBoard() {
@@ -32,12 +36,12 @@ public class Board {
         System.out.print("\n");  
     }
 
-    public Cell getElement(int row, int col) {
+    public Mark getElement(int row, int col) {
         assert(row < SIZE && row >= 0 && col < SIZE && col >= 0);
         return board[row][col];
     }
 
-    public boolean setElement(Cell element, int row, int col) {
+    public boolean setElement(Mark element, int row, int col) {
         row -= 1; col -= 1;
         if(row >= SIZE || row < 0 || col >= SIZE || col < 0 || getElement(row, col).isTaken())
             return false;
@@ -49,9 +53,9 @@ public class Board {
     public static void main(String[] args) {
         Board board = new Board(3);
 
-        board.setElement(Cell.X, 1, 1);
-        board.setElement(Cell.X, 2, 2);
-        board.setElement(Cell.X, 3, 3);
+        board.setElement(Mark.X, 1, 1);
+        board.setElement(Mark.X, 2, 2);
+        board.setElement(Mark.X, 3, 3);
 
         board.displayBoard();
     }

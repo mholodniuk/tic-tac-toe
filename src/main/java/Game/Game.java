@@ -1,23 +1,48 @@
 package Game;
 
+import java.util.Scanner;
+
+import Players.MiniMax;
+
+// import Players.*;
 
 public class Game {
     private Board board;
     private final int BOARD_SIZE;
     private final int WIN_CONDITION;
+    private int possibleMoves;
 
     public Game(int boardSize, int winCondition) {
+        if(boardSize < winCondition)
+            System.exit(1); // trochę na łatwiznę
+
         BOARD_SIZE = boardSize;
         WIN_CONDITION = winCondition;
+        possibleMoves = BOARD_SIZE * BOARD_SIZE;
         board = new Board(BOARD_SIZE);
     }
 
-    public boolean placeElement(Cell element, int row, int col) {
-        return board.setElement(element, row, col);
+    public boolean setElement(Mark element, int row, int col) {
+        boolean validMove = board.setElement(element, row, col);
+        if(validMove)
+            possibleMoves -= 1;
+        return validMove;
+    }
+
+    public int getPossibleMoves() {
+        return possibleMoves;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public int getBoardSize() {
+        return BOARD_SIZE;
     }
 
     // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w poziomie
-    public boolean checkHorizontal(Cell player) {
+    private boolean checkHorizontal(Mark player) {
         for(int i = 0; i < BOARD_SIZE; ++i) {
             int counter = 0;
             for(int j = 0; j < BOARD_SIZE; ++j) {
@@ -35,7 +60,7 @@ public class Game {
     }
 
     // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w pionie
-    public boolean checkVertical(Cell player) {
+    private boolean checkVertical(Mark player) {
         for(int j = 0; j < BOARD_SIZE; ++j) {
             int counter = 0;
             for(int i = 0; i < BOARD_SIZE; ++i) {
@@ -53,7 +78,7 @@ public class Game {
     }
 
     // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w po skosie \
-    public boolean checkDiagonalBackSlash(Cell player) {
+    private boolean checkDiagonalBackSlash(Mark player) {
         int l = 0;
         int counter = 0;
         // backslash \
@@ -75,7 +100,7 @@ public class Game {
     }
 
     // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w po skosie /
-    public boolean checkDiagonalSlash(Cell player) {
+    private boolean checkDiagonalSlash(Mark player) {
         int l = 0;
         int counter = 0;
         // slash /
@@ -98,25 +123,56 @@ public class Game {
         return false;
     }
 
-    public boolean checkDiagonal(Cell player) {
+    private boolean checkDiagonal(Mark player) {
         return checkDiagonalSlash(player) || checkDiagonalBackSlash(player);
     }
 
-    public boolean checkWin(Cell player) {
-        return checkDiagonal(player) || checkHorizontal(player) ||
-            checkVertical(player);
+    public boolean checkWin(Mark player) {
+        return checkDiagonal(player) || checkHorizontal(player) || checkVertical(player);
+    }
+
+    public boolean checkIfGameFinished() {
+        for(int i = 0; i < BOARD_SIZE; ++i)
+            for(int j = 0; j < BOARD_SIZE; ++j)
+                if(board.getElement(i, j) == Mark.BLANK)
+                    return false;
+        return true;
     }
 
     public static void main(String[] args) {
-        Game game = new Game(4, 2);
+        
+        Game game = new Game(3, 3);
 
-        game.placeElement(Cell.X, 2, 2);
-        game.placeElement(Cell.X, 1, 4);
-        game.placeElement(Cell.X, 4, 2);
+        game.getBoard().displayBoard();
 
-        game.board.displayBoard();
+        MiniMax AI = new MiniMax();
 
-        if(game.checkWin(Cell.X))
-            System.out.println("Wygrał X");
+        Scanner in = new Scanner(System.in);
+        int row = 1;
+        int col = 1;
+
+        game.setElement(Mark.O, row, col);
+        game.getBoard().displayBoard();
+
+        int[] result = AI.makeMove(game);
+
+        System.out.println(result[0] + " " + result[1]);
+
+        // game.setElement(Mark.O, result[0], result[1]);
+        game.getBoard().displayBoard();
+
+
+        // while(game.getPossibleMoves() > 0) {
+        //     System.out.print("Podaj wiersz i kolumnę (np. 1 2): ");
+        //     row = in.nextInt();
+        //     col = in.nextInt();
+        //     while(!game.setElement(currentPlayer, row, col)) {
+        //         System.out.print("Złe dane. Podaj wiersz i kolumnę (np. 1 2): ");
+        //         row = in.nextInt();
+        //         col = in.nextInt();
+        //     }
+        //     game.getBoard().displayBoard();
+        // }
+        in.close();
     }
 }
