@@ -1,7 +1,6 @@
 package Game;
 
 
-
 public class Game {
     private Board board;
     private final int BOARD_SIZE;
@@ -13,7 +12,7 @@ public class Game {
         board = new Board(BOARD_SIZE);
     }
 
-    public boolean setElement(Cell element, int row, int col) {
+    public boolean placeElement(Cell element, int row, int col) {
         return board.setElement(element, row, col);
     }
 
@@ -53,7 +52,8 @@ public class Game {
         return false;
     }
 
-    public boolean checkDiagonal(Cell player) {
+    // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w po skosie \
+    public boolean checkDiagonalBackSlash(Cell player) {
         int l = 0;
         int counter = 0;
         // backslash \
@@ -65,51 +65,58 @@ public class Game {
                         counter += 1;
                     else if(board.getElement(l, k) != player)
                         counter = 0;
-                    //System.out.println(l + " <- l, k -> " + k);
                     l++;
                 }
                 if(counter >= WIN_CONDITION)
                     return true;
             }
         }
-        counter = 0;
+        return false;
+    }
+
+    // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w po skosie /
+    public boolean checkDiagonalSlash(Cell player) {
+        int l = 0;
+        int counter = 0;
         // slash /
         for(int i = 0; i <= BOARD_SIZE - WIN_CONDITION; ++i) {
             for(int j = 0; j <= BOARD_SIZE - WIN_CONDITION; ++j) {
                 l = i;
                 for(int k = j + WIN_CONDITION - 1; k >= 0; --k) {
-                    // System.out.println(l + " <- l, k -> " + k);
                     if(board.getElement(l, k) == player)
                         counter += 1;
                     else if(board.getElement(l, k) != player) {
                         counter = 0;
                         break;
                     }
-                    // System.out.println("counter: " + counter);
                     if(counter >= WIN_CONDITION)
                         return true;
                     l++;
                 }
-                
             }
         }
-
         return false;
     }
 
+    public boolean checkDiagonal(Cell player) {
+        return checkDiagonalSlash(player) || checkDiagonalBackSlash(player);
+    }
+
+    public boolean checkWin(Cell player) {
+        return checkDiagonal(player) || checkHorizontal(player) ||
+            checkVertical(player);
+    }
+
     public static void main(String[] args) {
-        Game game = new Game(4, 3);
+        Game game = new Game(4, 2);
 
-        // game.setElement(Cell.X, 3, 4);
-        // game.setElement(Cell.X, 4, 3);
-
-        game.setElement(Cell.X, 1, 3);
-        game.setElement(Cell.X, 2, 2);
-        game.setElement(Cell.X, 3, 4);
+        game.placeElement(Cell.X, 2, 2);
+        game.placeElement(Cell.X, 1, 4);
+        game.placeElement(Cell.X, 4, 2);
 
         game.board.displayBoard();
 
-        if(game.checkDiagonal(Cell.X))
+        if(game.checkWin(Cell.X))
             System.out.println("Wygrał X");
     }
 }
