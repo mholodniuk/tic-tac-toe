@@ -94,6 +94,10 @@ public class MiniMax implements IPlayer {
 
         // ruch gracza
         game.setElement(Mark.O, 0, 0);
+        // game.getBoard().displayBoard();
+
+        // ruch gracza
+        game.setElement(Mark.O, 1, 1);
         game.getBoard().displayBoard();
 
         // ruch minimaxa
@@ -101,11 +105,12 @@ public class MiniMax implements IPlayer {
         game.setElement(Mark.X, result[0], result[1]);
         game.getBoard().displayBoard();
 
-        // ruch gracza
-        game.setElement(Mark.O, 2, 2);
+        
+        // ruch minimaxa
+        result = AI.makeMove(game);
+        game.setElement(Mark.X, result[0], result[1]);
         game.getBoard().displayBoard();
 
-        
         // ruch minimaxa
         result = AI.makeMove(game);
         game.setElement(Mark.X, result[0], result[1]);
