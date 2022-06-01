@@ -22,6 +22,13 @@ public class Game {
         board = new Board(BOARD_SIZE);
     }
 
+    public Game(Game other) {
+        this.BOARD_SIZE = other.BOARD_SIZE;
+        this.WIN_CONDITION = other.WIN_CONDITION;
+        this.board = new Board(other.getBoard());
+        this.possibleMoves = other.possibleMoves;
+    }
+
     public boolean setElement(Mark element, int row, int col) {
         boolean validMove = board.setElement(element, row, col);
         if(validMove)
@@ -131,35 +138,43 @@ public class Game {
         return checkDiagonal(player) || checkHorizontal(player) || checkVertical(player);
     }
 
-    public boolean checkIfGameFinished() {
-        for(int i = 0; i < BOARD_SIZE; ++i)
-            for(int j = 0; j < BOARD_SIZE; ++j)
-                if(board.getElement(i, j) == Mark.BLANK)
-                    return false;
-        return true;
+    public boolean checkIfAnyMovesAvailable() {
+        return possibleMoves > 0;
+        // for(int i = 0; i < BOARD_SIZE; ++i)
+        //     for(int j = 0; j < BOARD_SIZE; ++j)
+        //         if(board.getElement(i, j) == Mark.BLANK)
+        //             return false;
+        // return true;
     }
 
     public static void main(String[] args) {
         
         Game game = new Game(3, 3);
 
-        game.getBoard().displayBoard();
+        Game gameCopy = new Game(game);
 
-        MiniMax AI = new MiniMax();
+        // game.getBoard().displayBoard();
+
+        // MiniMax AI = new MiniMax();
 
         Scanner in = new Scanner(System.in);
         int row = 1;
         int col = 1;
 
         game.setElement(Mark.O, row, col);
+
         game.getBoard().displayBoard();
 
-        int[] result = AI.makeMove(game);
+        gameCopy.getBoard().displayBoard();
 
-        System.out.println(result[0] + " " + result[1]);
+        // int[] result = AI.makeMove(game);
+        // game.getBoard().displayBoard();
+
+
+        // System.out.println(result[0] + " " + result[1]);
 
         // game.setElement(Mark.O, result[0], result[1]);
-        game.getBoard().displayBoard();
+        // game.getBoard().displayBoard();
 
 
         // while(game.getPossibleMoves() > 0) {
@@ -168,8 +183,8 @@ public class Game {
         //     col = in.nextInt();
         //     while(!game.setElement(currentPlayer, row, col)) {
         //         System.out.print("Złe dane. Podaj wiersz i kolumnę (np. 1 2): ");
-        //         row = in.nextInt();
-        //         col = in.nextInt();
+        //         row = in.nextInt() + 1;
+        //         col = in.nextInt() + 1;
         //     }
         //     game.getBoard().displayBoard();
         // }

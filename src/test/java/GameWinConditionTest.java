@@ -11,10 +11,10 @@ import Game.*;
  */
 public class GameWinConditionTest  {
 
-    // 4x3 == size 4x4 && win condition 3 same cells next to each other
+    // 3x2 == size 3x3 && win condition 2 same cells next to each other
 
     @Test
-    public void HorizontalWin4x3Full() {
+    public void HorizontalWin3x2Full() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -27,15 +27,15 @@ public class GameWinConditionTest  {
         // |   |   |   |   |
         // -----------------
 
-        game.setElement(Mark.X, 1, 1);
-        game.setElement(Mark.X, 1, 2);
-        game.setElement(Mark.X, 1, 3);
+        game.setElement(Mark.X, 0, 0);
+        game.setElement(Mark.X, 0, 1);
+        game.setElement(Mark.X, 0, 2);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void HorizontalWin4x3Part() {
+    public void HorizontalWin3x2Part() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -48,15 +48,15 @@ public class GameWinConditionTest  {
         // |   |   |   |   |
         // -----------------
 
-        game.setElement(Mark.X, 1, 2);
-        game.setElement(Mark.X, 1, 3);
-        game.setElement(Mark.X, 1, 4);
+        game.setElement(Mark.X, 0, 1);
+        game.setElement(Mark.X, 0, 2);
+        game.setElement(Mark.X, 0, 3);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void VerticalWin4x3Full() {
+    public void VerticalWin3x2Full() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -69,15 +69,15 @@ public class GameWinConditionTest  {
         // |   |   |   |   |
         // -----------------
 
-        game.setElement(Mark.X, 1, 1);
-        game.setElement(Mark.X, 2, 1);
-        game.setElement(Mark.X, 3, 1);
+        game.setElement(Mark.X, 0, 0);
+        game.setElement(Mark.X, 1, 0);
+        game.setElement(Mark.X, 2, 0);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void VerticalWin4x3Part() {
+    public void VerticalWin3x2Part() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -90,15 +90,15 @@ public class GameWinConditionTest  {
         // | X |   |   |   |
         // -----------------
 
-        game.setElement(Mark.X, 1, 1);
-        game.setElement(Mark.X, 2, 1);
-        game.setElement(Mark.X, 4, 1);
+        game.setElement(Mark.X, 0, 0);
+        game.setElement(Mark.X, 1, 0);
+        game.setElement(Mark.X, 3, 0);
 
         assertFalse(game.checkWin(Mark.X));
     }
 
     @Test
-    public void DiagonalBackSlashWin4x3Part1() {
+    public void DiagonalBackSlashWin3x2Part0() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -111,15 +111,15 @@ public class GameWinConditionTest  {
         // |   |   | X |   |
         // -----------------
 
+        game.setElement(Mark.X, 1, 0);
         game.setElement(Mark.X, 2, 1);
         game.setElement(Mark.X, 3, 2);
-        game.setElement(Mark.X, 4, 3);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void DiagonalBackSlashWin4x3Part2() {
+    public void DiagonalBackSlashWin3x2Part1() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -132,15 +132,15 @@ public class GameWinConditionTest  {
         // |   |   |   |   |
         // -----------------
 
+        game.setElement(Mark.X, 0, 1);
         game.setElement(Mark.X, 1, 2);
         game.setElement(Mark.X, 2, 3);
-        game.setElement(Mark.X, 3, 4);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void DiagonalBackSlashWin3x3Full() {
+    public void DiagonalBackSlashWin2x2Full() {
         Game game = new Game(3, 3);
 
         // -------------
@@ -151,15 +151,15 @@ public class GameWinConditionTest  {
         // |   |   | X |
         // -------------
 
+        game.setElement(Mark.X, 0, 0);
         game.setElement(Mark.X, 1, 1);
         game.setElement(Mark.X, 2, 2);
-        game.setElement(Mark.X, 3, 3);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void DiagonalSlashWin4x3Full() {
+    public void DiagonalSlashWin3x2Full() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -172,16 +172,16 @@ public class GameWinConditionTest  {
         // | X |   |   |   |
         // -----------------
 
-        game.setElement(Mark.X, 1, 4);
-        game.setElement(Mark.X, 2, 3);
-        game.setElement(Mark.X, 3, 2);
-        game.setElement(Mark.X, 4, 1);
+        game.setElement(Mark.X, 0, 3);
+        game.setElement(Mark.X, 1, 2);
+        game.setElement(Mark.X, 2, 1);
+        game.setElement(Mark.X, 3, 0);
 
         assertTrue(game.checkWin(Mark.X));
     }
 
     @Test
-    public void DiagonalSlashWin4x3Part1() {
+    public void DiagonalSlashWin3x2Part0() {
         Game game = new Game(4, 3);
 
         // -----------------
@@ -192,32 +192,32 @@ public class GameWinConditionTest  {
         // | X |   |   |   |
         // -----------------
         // |   |   |   |   |
+        // -----------------
+
+        game.setElement(Mark.X, 0, 2);
+        game.setElement(Mark.X, 1, 1);
+        game.setElement(Mark.X, 2, 0);
+
+        assertTrue(game.checkWin(Mark.X));
+    }
+
+    @Test
+    public void DiagonalSlashWin3x2Part1() {
+        Game game = new Game(4, 3);
+
+        // -----------------
+        // |   |   |   |   |
+        // -----------------
+        // |   |   |   | X |
+        // -----------------
+        // |   |   | X |   |
+        // -----------------
+        // |   | X |   |   |
         // -----------------
 
         game.setElement(Mark.X, 1, 3);
         game.setElement(Mark.X, 2, 2);
         game.setElement(Mark.X, 3, 1);
-
-        assertTrue(game.checkWin(Mark.X));
-    }
-
-    @Test
-    public void DiagonalSlashWin4x3Part2() {
-        Game game = new Game(4, 3);
-
-        // -----------------
-        // |   |   |   |   |
-        // -----------------
-        // |   |   |   | X |
-        // -----------------
-        // |   |   | X |   |
-        // -----------------
-        // |   | X |   |   |
-        // -----------------
-
-        game.setElement(Mark.X, 2, 4);
-        game.setElement(Mark.X, 3, 3);
-        game.setElement(Mark.X, 4, 2);
 
         assertTrue(game.checkWin(Mark.X));
     }

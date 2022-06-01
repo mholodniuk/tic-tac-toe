@@ -11,8 +11,20 @@ public class Board {
         
         for(int row = 0; row < size; ++row) {
             for(int col = 0; col < size; ++col) 
-                board[row][col] = Mark.BLANK;
+                this.board[row][col] = Mark.BLANK;
         }
+    }
+
+    public Board(Board other) {
+        this.SIZE = other.SIZE;
+        this.board = other.getBoardCopy();
+    }
+
+    public Mark[][] getBoardCopy() {
+        Mark [][] boardCopy = new Mark[board.length][];
+        for(int i = 0; i < board.length; i++)
+            boardCopy[i] = board[i].clone();
+        return boardCopy;
     }
 
     public int getBoardSize() {
@@ -42,7 +54,6 @@ public class Board {
     }
 
     public boolean setElement(Mark element, int row, int col) {
-        row -= 1; col -= 1;
         if(row >= SIZE || row < 0 || col >= SIZE || col < 0 || getElement(row, col).isTaken())
             return false;
         
@@ -51,11 +62,21 @@ public class Board {
     }
 
     public static void main(String[] args) {
-        Board board = new Board(3);
+        Board board = new Board(4);
 
-        board.setElement(Mark.X, 1, 1);
-        board.setElement(Mark.X, 2, 2);
-        board.setElement(Mark.X, 3, 3);
+        // -----------------
+        // |   |   |   |   |
+        // -----------------
+        // | X |   |   |   |
+        // -----------------
+        // |   | X |   |   |
+        // -----------------
+        // |   |   | X |   |
+        // -----------------
+
+        board.setElement(Mark.X, 2, 1);
+        board.setElement(Mark.X, 3, 2);
+        board.setElement(Mark.X, 0, 3);
 
         board.displayBoard();
     }
