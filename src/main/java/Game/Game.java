@@ -1,6 +1,6 @@
 package Game;
 
-
+// klasa modelująca logikę gry w kółko i krzyżyk
 public class Game {
     private Board board;
     private final int BOARD_SIZE;
@@ -9,7 +9,7 @@ public class Game {
 
     public Game(int boardSize, int winCondition) {
         if(boardSize < winCondition)
-            System.exit(1); // trochę na łatwiznę
+            throw new IllegalArgumentException("Winnig number can not exceed board size!");
 
         BOARD_SIZE = boardSize;
         WIN_CONDITION = winCondition;
@@ -17,6 +17,7 @@ public class Game {
         board = new Board(BOARD_SIZE);
     }
 
+    // Deep copy 
     public Game(Game other) {
         this.BOARD_SIZE = other.BOARD_SIZE;
         this.WIN_CONDITION = other.WIN_CONDITION;
@@ -24,6 +25,8 @@ public class Game {
         this.possibleMoves = other.possibleMoves;
     }
 
+    // metoda pozwalająca graczowi na umieszczenie elementu na tablicy
+    // (sprawdza poprawność tej operacji)
     public boolean setElement(Mark element, int row, int col) {
         boolean validMove = board.setElement(element, row, col);
         if(validMove)
@@ -31,28 +34,28 @@ public class Game {
         return validMove;
     }
 
+    // metoda pozwalająca na zmianę wartości podanego elementu
+    // (wykorzystywana jedynie przez algorytm MiniMax od symulowania gry)
     public boolean changeElement(Mark element, int row, int col) {
         return board.changeElement(element, row, col);
     }
 
+    // metoda sprawdzająca czy zostały zajęte wszystkie pola - koniec gry (remis)
     public boolean isGameOver() {
-        for(int i = 0; i < BOARD_SIZE; ++i) {
-            for(int j = 0; j < BOARD_SIZE; ++j) {
-                if(!board.getElement(i, j).isTaken())
-                    return false;
-            }
-        }
-        return true;
+        return possibleMoves <= 0;
     }
 
+    // metoda sprawdzająca czy podane miejsce jest zajęte
     public boolean isPlaceTaken(int row, int col) {
         return board.getElement(row, col).isTaken();
     }
 
+    // metoda pobierająca tablicę
     public Board getBoard() {
         return board;
     }
 
+    // metoda pobierająca rozmiar tablicy
     public int getBoardSize() {
         return BOARD_SIZE;
     }
@@ -139,18 +142,18 @@ public class Game {
         return false;
     }
 
+    // sprawdzenie obu skosów
     private boolean checkDiagonal(Mark player) {
         return checkDiagonalSlash(player) || checkDiagonalBackSlash(player);
     }
 
+    // sprawdzenie czy dany gracz wygrał
     public boolean checkWin(Mark player) {
         return checkDiagonal(player) || checkHorizontal(player) || checkVertical(player);
     }
 
-    public boolean checkIfAnyMovesAvailable() {
-        return possibleMoves > 0;
-    }
 
+    // przykładowe działanie aplikacji (+ sprawdzenie poprawności deep copy)
     public static void main(String[] args) {
         
         Game game = new Game(3, 3);

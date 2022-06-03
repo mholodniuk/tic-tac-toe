@@ -10,7 +10,7 @@ public class RandomAI{
     private RandomAI() {
     }
     
-    public int[] makeMove(Game game, Mark mark) {
+    public static void makeMove(Game game, Mark mark) {
 
         ArrayList<int[]> availableMoves = new ArrayList<>();
 
@@ -22,6 +22,6 @@ public class RandomAI{
             }
         }
         int index = (int)(Math.random() * availableMoves.size());
-        return availableMoves.get(index);
+        game.setElement(mark, availableMoves.get(index)[0], availableMoves.get(index)[1]);
     }
 }

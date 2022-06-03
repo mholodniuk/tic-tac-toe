@@ -5,9 +5,9 @@ import java.util.Scanner;
 import Game.Game;
 import Game.Mark;
 
-public class Human {
+public class Player {
     
-    public int[] makeMove(Game game, Mark playerMark) {
+    public static void makeMove(Game game, Mark playerMark) {
 
         Scanner in = new Scanner(System.in);
         int row = -1, col = -1;
@@ -22,6 +22,5 @@ public class Human {
             col = in.nextInt();
         }
         // in.close();
-        return new int[] {row, col};
     }
 }

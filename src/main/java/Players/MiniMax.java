@@ -4,16 +4,14 @@ import Game.*;
 
 public class MiniMax{
     
-    private static final int MAX_DEPTH = 1000;
+    private static final int MAX_DEPTH = 5;
 
     private MiniMax() {
     }
 
-    public static int[] makeMove(Game game, Mark mark) {
+    public static void makeMove(Game game, Mark mark) {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
-
-        // Game gameCopy = new Game(game);
 
         for(int i = 0; i < game.getBoardSize(); ++i) {
             for(int j = 0; j < game.getBoardSize(); ++j) {
@@ -29,12 +27,10 @@ public class MiniMax{
                 }
             }
         }
-        // game.changeElement(Mark.X, bestMove[0], bestMove[1]);
-        System.out.println("best move = (" + bestMove[0] + " " + bestMove[1] + ")");
-        return bestMove;
+        game.changeElement(Mark.X, bestMove[0], bestMove[1]);
     }
 
-    public static int miniMax(Game game, int depth, boolean isMaximizing) {
+    private static int miniMax(Game game, int depth, boolean isMaximizing) {
         // zwrócenie wartości aktualnej tablicy jeśli koniec gry
         int boardValue = 0;
         if(game.checkWin(Mark.X)) {
@@ -88,22 +84,11 @@ public class MiniMax{
 
     public static void main(String[] args) {
         Game game = new Game(3, 3);
-        // MiniMax AI = new MiniMax();
-        // Human human = new Human();
-        int[] result;
-
-        // game.getBoard().displayBoard();
-
-        // ruch gracza
-        // game.setElement(Mark.O, 0, 0);
-        // game.setElement(Mark.O, 1, 0);
-        // game.getBoard().displayBoard();
 
         // ruch minimaxa
-        result = MiniMax.makeMove(game, Mark.BLANK);
+        MiniMax.makeMove(game, Mark.BLANK);
+
         // game.setElement(Mark.X, result[0], result[1]);
-        // result = AI.makeMove(game, Mark.BLANK);
-        game.setElement(Mark.X, result[0], result[1]);
         game.getBoard().displayBoard();
     }
 }

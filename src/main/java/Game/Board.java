@@ -1,7 +1,7 @@
 package Game;
 
+// klasa modelująca tablicę do gry w kółko i krzyżyk
 public class Board {
-
     private final int SIZE;
     private Mark[][] board;
 
@@ -71,16 +71,6 @@ public class Board {
 
     public static void main(String[] args) {
         Board board = new Board(4);
-
-        // -----------------
-        // |   |   |   |   |
-        // -----------------
-        // | X |   |   |   |
-        // -----------------
-        // |   | X |   |   |
-        // -----------------
-        // |   |   | X |   |
-        // -----------------
 
         board.setElement(Mark.X, 2, 1);
         board.setElement(Mark.X, 3, 2);
