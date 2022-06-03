@@ -5,23 +5,23 @@ import java.util.Scanner;
 import Game.Game;
 import Game.Mark;
 
-public class Human implements IPlayer {
+public class Human {
     
-    public int[] makeMove(Game game) {
+    public int[] makeMove(Game game, Mark playerMark) {
 
         Scanner in = new Scanner(System.in);
         int row = -1, col = -1;
 
-        System.out.print("Podaj wiersz i kolumnę (np. 1 2): ");
+        System.out.print(playerMark.toString() + "'s move. Choose place to mark: (eg. 1 2): ");
         row = in.nextInt();
         col = in.nextInt();
 
-        while(!game.setElement(Mark.O, row, col)) {
-            System.out.print("Złe dane. Podaj wiersz i kolumnę (np. 1 2): ");
+        while(!game.setElement(playerMark, row, col)) {
+            System.out.print("Bad choice. Choose another place to mark: (eg. 1 2): ");
             row = in.nextInt();
             col = in.nextInt();
         }
-        in.close();
+        // in.close();
         return new int[] {row, col};
     }
 }

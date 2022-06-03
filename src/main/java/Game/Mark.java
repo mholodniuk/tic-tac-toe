@@ -7,9 +7,9 @@ public enum Mark {
 
     private final char mark;
 
-    Mark(char symbol) {
-        this.mark = symbol;
-    }
+    Mark(char mark) {
+        this.mark = mark;
+    } 
 
     public boolean isTaken() {
         return this != BLANK;

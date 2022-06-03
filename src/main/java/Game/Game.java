@@ -1,10 +1,5 @@
 package Game;
 
-import java.util.Scanner;
-
-import Players.MiniMax;
-
-// import Players.*;
 
 public class Game {
     private Board board;
@@ -36,8 +31,18 @@ public class Game {
         return validMove;
     }
 
-    public int getPossibleMoves() {
-        return possibleMoves;
+    public boolean isGameOver() {
+        for(int i = 0; i < BOARD_SIZE; ++i) {
+            for(int j = 0; j < BOARD_SIZE; ++j) {
+                if(!board.getElement(i, j).isTaken())
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isPlaceTaken(int row, int col) {
+        return board.getElement(row, col).isTaken();
     }
 
     public Board getBoard() {
@@ -140,11 +145,6 @@ public class Game {
 
     public boolean checkIfAnyMovesAvailable() {
         return possibleMoves > 0;
-        // for(int i = 0; i < BOARD_SIZE; ++i)
-        //     for(int j = 0; j < BOARD_SIZE; ++j)
-        //         if(board.getElement(i, j) == Mark.BLANK)
-        //             return false;
-        // return true;
     }
 
     public static void main(String[] args) {
@@ -153,11 +153,6 @@ public class Game {
 
         Game gameCopy = new Game(game);
 
-        // game.getBoard().displayBoard();
-
-        // MiniMax AI = new MiniMax();
-
-        Scanner in = new Scanner(System.in);
         int row = 1;
         int col = 1;
 
@@ -167,27 +162,5 @@ public class Game {
 
         gameCopy.getBoard().displayBoard();
 
-        // int[] result = AI.makeMove(game);
-        // game.getBoard().displayBoard();
-
-
-        // System.out.println(result[0] + " " + result[1]);
-
-        // game.setElement(Mark.O, result[0], result[1]);
-        // game.getBoard().displayBoard();
-
-
-        // while(game.getPossibleMoves() > 0) {
-        //     System.out.print("Podaj wiersz i kolumnę (np. 1 2): ");
-        //     row = in.nextInt();
-        //     col = in.nextInt();
-        //     while(!game.setElement(currentPlayer, row, col)) {
-        //         System.out.print("Złe dane. Podaj wiersz i kolumnę (np. 1 2): ");
-        //         row = in.nextInt() + 1;
-        //         col = in.nextInt() + 1;
-        //     }
-        //     game.getBoard().displayBoard();
-        // }
-        in.close();
     }
 }
