@@ -31,6 +31,10 @@ public class Game {
         return validMove;
     }
 
+    public boolean changeElement(Mark element, int row, int col) {
+        return board.changeElement(element, row, col);
+    }
+
     public boolean isGameOver() {
         for(int i = 0; i < BOARD_SIZE; ++i) {
             for(int j = 0; j < BOARD_SIZE; ++j) {

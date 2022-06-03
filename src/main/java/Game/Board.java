@@ -61,6 +61,14 @@ public class Board {
         return true;
     }
 
+    public boolean changeElement(Mark element, int row, int col) {
+        if(row >= SIZE || row < 0 || col >= SIZE || col < 0)
+            return false;
+        
+        board[row][col] = element;
+        return true;
+    }
+
     public static void main(String[] args) {
         Board board = new Board(4);
 

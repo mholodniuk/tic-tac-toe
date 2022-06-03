@@ -11,10 +11,11 @@ public class MainGame {
         // RandomAI AIRandomPlayer = new RandomAI();
         int counter = 0;
         int winner = 0;
-        int[] result = new int[2];
+        int[] result = null;
+        tictactoe.getBoard().displayBoard();
 
         while(!tictactoe.isGameOver()) {
-            tictactoe.getBoard().displayBoard();
+            // tictactoe.getBoard().displayBoard();
             if(counter % 2 != 0) {
                 humanPlayer.makeMove(tictactoe, Mark.O);
 
@@ -37,6 +38,7 @@ public class MainGame {
                 }
             }
             counter++;
+            tictactoe.getBoard().displayBoard();
         }
         tictactoe.getBoard().displayBoard();
         if(tictactoe.isGameOver() && winner == 0)

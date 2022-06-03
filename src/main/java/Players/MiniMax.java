@@ -13,23 +13,23 @@ public class MiniMax{
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
 
-        Game gameCopy = new Game(game);
+        // Game gameCopy = new Game(game);
 
         for(int i = 0; i < game.getBoardSize(); ++i) {
             for(int j = 0; j < game.getBoardSize(); ++j) {
                 if(!game.isPlaceTaken(i, j)) {
-                    gameCopy.setElement(Mark.X, i, j);
-                    int moveValue = miniMax(gameCopy, MAX_DEPTH, false);
-                    // System.out.println("minimax for: (" + i + " " + j + ") = " + moveValue);
-                    gameCopy.setElement(Mark.BLANK, i, j);
+                    game.setElement(Mark.X, i, j);
+                    int moveValue = miniMax(game, MAX_DEPTH, false);
+                    game.changeElement(Mark.BLANK, i, j);
                     if(moveValue > bestValue) {
+                        bestValue = moveValue;
                         bestMove[0] = i;
                         bestMove[1] = j;
-                        bestValue = moveValue;
                     }
                 }
             }
         }
+        // game.changeElement(Mark.X, bestMove[0], bestMove[1]);
         System.out.println("best move = (" + bestMove[0] + " " + bestMove[1] + ")");
         return bestMove;
     }
@@ -59,9 +59,10 @@ public class MiniMax{
                 for(int j = 0; j < game.getBoardSize(); j++) {
                     if(!game.isPlaceTaken(i, j)) {
                         game.setElement(Mark.X, i, j);
-
-                        maxEvaluation = Math.max(maxEvaluation, miniMax(game, depth - 1, false));
-                        game.setElement(Mark.BLANK, i, j);
+                        int currentMiniMaxValue = miniMax(game, depth - 1, false);
+                        if(!game.changeElement(Mark.BLANK, i, j))
+                            System.out.println("Nie udało się zamienić wartości");
+                        maxEvaluation = Math.max(maxEvaluation, currentMiniMaxValue);
                     }
                 }
             }
@@ -73,9 +74,11 @@ public class MiniMax{
                 for(int j = 0; j < game.getBoardSize(); j++) {
                     if(!game.isPlaceTaken(i, j)) {
                         game.setElement(Mark.O, i, j);
-
-                        minEvaluation = Math.min(minEvaluation, miniMax(game, depth - 1, true));
-                        game.setElement(Mark.BLANK, i, j);
+                        game.changeElement(Mark.O, i, j);
+                        int currentMiniMaxValue = miniMax(game, depth - 1, true);
+                        if(!game.changeElement(Mark.BLANK, i, j))
+                            System.out.println("Nie udało się zamienić wartości");
+                        minEvaluation = Math.min(minEvaluation, currentMiniMaxValue);
                     }
                 }
             }
@@ -92,15 +95,15 @@ public class MiniMax{
         // game.getBoard().displayBoard();
 
         // ruch gracza
-        game.setElement(Mark.O, 2, 0);
-        game.setElement(Mark.O, 1, 0);
+        // game.setElement(Mark.O, 0, 0);
+        // game.setElement(Mark.O, 1, 0);
         // game.getBoard().displayBoard();
 
         // ruch minimaxa
         result = MiniMax.makeMove(game, Mark.BLANK);
-        game.setElement(Mark.X, result[0], result[1]);
-        // result = AI.makeMove(game, Mark.BLANK);
         // game.setElement(Mark.X, result[0], result[1]);
+        // result = AI.makeMove(game, Mark.BLANK);
+        game.setElement(Mark.X, result[0], result[1]);
         game.getBoard().displayBoard();
     }
 }
