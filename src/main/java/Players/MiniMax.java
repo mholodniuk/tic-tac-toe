@@ -42,8 +42,6 @@ public class MiniMax{
 
         // sprawdzenie czy nie osiągnięto maksimum głębokości
         if(Math.abs(boardValue) == 1 || depth == 0 || game.isGameOver()) {
-            // game.getBoard().displayBoard();
-            // System.out.println(boardValue);
             return boardValue;
         }
 
@@ -56,8 +54,7 @@ public class MiniMax{
                     if(!game.isPlaceTaken(i, j)) {
                         game.setElement(Mark.X, i, j);
                         int currentMiniMaxValue = miniMax(game, depth - 1, false);
-                        if(!game.changeElement(Mark.BLANK, i, j))
-                            System.out.println("Nie udało się zamienić wartości");
+                        game.changeElement(Mark.BLANK, i, j);
                         maxEvaluation = Math.max(maxEvaluation, currentMiniMaxValue);
                     }
                 }
@@ -72,8 +69,7 @@ public class MiniMax{
                         game.setElement(Mark.O, i, j);
                         game.changeElement(Mark.O, i, j);
                         int currentMiniMaxValue = miniMax(game, depth - 1, true);
-                        if(!game.changeElement(Mark.BLANK, i, j))
-                            System.out.println("Nie udało się zamienić wartości");
+                        game.changeElement(Mark.BLANK, i, j);
                         minEvaluation = Math.min(minEvaluation, currentMiniMaxValue);
                     }
                 }

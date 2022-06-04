@@ -5,7 +5,6 @@ public class Game {
     private Board board;
     private final int BOARD_SIZE;
     private final int WIN_CONDITION;
-    private int possibleMoves;
 
     public Game(int boardSize, int winCondition) {
         if(boardSize < winCondition)
@@ -13,7 +12,6 @@ public class Game {
 
         BOARD_SIZE = boardSize;
         WIN_CONDITION = winCondition;
-        possibleMoves = BOARD_SIZE * BOARD_SIZE;
         board = new Board(BOARD_SIZE);
     }
 
@@ -22,16 +20,12 @@ public class Game {
         this.BOARD_SIZE = other.BOARD_SIZE;
         this.WIN_CONDITION = other.WIN_CONDITION;
         this.board = new Board(other.getBoard());
-        this.possibleMoves = other.possibleMoves;
     }
 
     // metoda pozwalająca graczowi na umieszczenie elementu na tablicy
     // (sprawdza poprawność tej operacji)
     public boolean setElement(Mark element, int row, int col) {
-        boolean validMove = board.setElement(element, row, col);
-        if(validMove)
-            possibleMoves -= 1;
-        return validMove;
+        return board.setElement(element, row, col);
     }
 
     // metoda pozwalająca na zmianę wartości podanego elementu
@@ -42,7 +36,13 @@ public class Game {
 
     // metoda sprawdzająca czy zostały zajęte wszystkie pola - koniec gry (remis)
     public boolean isGameOver() {
-        return possibleMoves <= 0;
+        for(int i = 0; i < BOARD_SIZE; ++i) {
+            for(int j = 0; j < BOARD_SIZE; ++j) {
+                if(!board.getElement(i, j).isTaken())
+                    return false;
+            }
+        }
+        return true;
     }
 
     // metoda sprawdzająca czy podane miejsce jest zajęte
