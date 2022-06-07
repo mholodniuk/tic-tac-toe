@@ -15,10 +15,6 @@ public enum Mark {
         return this != BLANK;
     }
 
-    public char getMark() {
-        return this.mark;
-    }
-
     @Override
     public String toString() {
         return String.valueOf(mark);

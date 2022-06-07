@@ -4,7 +4,7 @@ import Players.*;
 public class MainGame {
 
     public static void main(String[] args) {
-        Game tictactoe = new Game(4, 3);
+        Game tictactoe = new Game(4, 4);
 
         int counter = 0;
         int winner = 0;
@@ -12,7 +12,7 @@ public class MainGame {
 
         while(!tictactoe.isGameOver()) {
             if(counter % 2 == 0) {
-                Player.makeMove(tictactoe, Mark.O);
+                Player.makeMove(tictactoe);
 
                 if(tictactoe.checkWin(Mark.O)) {
                     System.out.println("O's win!");
@@ -21,8 +21,9 @@ public class MainGame {
                 }
             }
             else {
-                MiniMax.makeMove(tictactoe, Mark.X);
-                // RandomAI.makeMove(tictactoe, Mark.X);
+                // MiniMax.makeMove(tictactoe);
+                MiniMaxAlphaBeta.makeMove(tictactoe);
+                // RandomAI.makeMove(tictactoe);
 
                 if(tictactoe.checkWin(Mark.X)) {
                     System.out.println("X's win!");

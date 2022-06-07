@@ -96,7 +96,7 @@ public class Game {
         return false;
     }
 
-    // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w po skosie \
+    // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku po skosie \
     private boolean checkDiagonalBackSlash(Mark player) {
         int l = 0;
         int counter = 0;
@@ -118,7 +118,7 @@ public class Game {
         return false;
     }
 
-    // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku w po skosie /
+    // sprawdzenie wszystkich możliwosći czy ustawiono wymaganą ilość jednego znaku po skosie /
     private boolean checkDiagonalSlash(Mark player) {
         int l = 0;
         int counter = 0;
