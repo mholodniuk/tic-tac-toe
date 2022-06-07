@@ -77,4 +77,8 @@ public class MiniMaxAlphaBeta {
             return minEvaluation;
         }
     }
+
+    public int calculateScore(Game game) {
+        return 0;
+    }
 }
