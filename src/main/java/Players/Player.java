@@ -8,7 +8,6 @@ import Game.Mark;
 public class Player {
     
     public static void makeMove(Game game) {
-
         Scanner in = new Scanner(System.in);
         int row = -1, col = -1;
 

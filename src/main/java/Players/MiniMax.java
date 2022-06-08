@@ -6,7 +6,7 @@ public class MiniMax {
     
     private static final int MAX_DEPTH = 5;
 
-    public static void makeMove(Game game) {
+    public static int[] makeMove(Game game) {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
 
@@ -25,6 +25,7 @@ public class MiniMax {
             }
         }
         game.changeElement(Mark.X, bestMove[0], bestMove[1]);
+        return bestMove;
     }
 
     private static int miniMax(Game game, int depth, boolean isMaximizing) {
