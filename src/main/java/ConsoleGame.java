@@ -1,7 +1,7 @@
 import Game.*;
 import Players.*;
 
-public class MainGame {
+public class ConsoleGame {
 
     public static void main(String[] args) {
         Game tictactoe = new Game(4, 4);
