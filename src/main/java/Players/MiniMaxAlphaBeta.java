@@ -5,17 +5,22 @@ import Game.Mark;
 
 public class MiniMaxAlphaBeta {
 
-    private static final int MAX_DEPTH = 8;
+    private static final int MAX_DEPTH = 10;
 
     public static int[] makeMove(Game game) {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
+        int depth = 0;
+        if(game.getBoardSize() > 3) 
+            depth = 6;
+        else    
+            depth = MAX_DEPTH;
 
         for(int i = 0; i < game.getBoardSize(); ++i) {
             for(int j = 0; j < game.getBoardSize(); ++j) {
                 if(!game.isPlaceTaken(i, j)) {
                     game.setElement(Mark.X, i, j);
-                    int moveValue = miniMax(game, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_DEPTH, false);
+                    int moveValue = miniMax(game, Integer.MIN_VALUE, Integer.MAX_VALUE, depth, false);
                     game.changeElement(Mark.BLANK, i, j);
                     if(moveValue > bestValue) {
                         bestValue = moveValue;
@@ -30,7 +35,6 @@ public class MiniMaxAlphaBeta {
     }
 
     private static int miniMax(Game game, int alpha, int beta, int depth, boolean isMaximizing) {
-        // zwrócenie wartości aktualnej tablicy jeśli koniec gry
         int boardValue = 0;
         if(game.checkWin(Mark.X)) {
             boardValue = +1;
@@ -38,7 +42,6 @@ public class MiniMaxAlphaBeta {
         if(game.checkWin(Mark.O)) {
             boardValue = -1;
         }
-        // sprawdzenie czy nie osiągnięto maksimum głębokości
         if(Math.abs(boardValue) == 1 || depth == 0 || game.isGameOver()) {
             return boardValue;
         }

@@ -1,3 +1,4 @@
+import java.io.OutputStream;
 import java.util.Scanner;
 
 import Game.*;
@@ -26,9 +27,11 @@ public class ConsoleGame {
 
         int counter = 0;
         int winner = 0;
-        tictactoe.getBoard().displayBoard();
+        // tictactoe.getBoard().displayBoard();
 
         while(!tictactoe.isGameOver()) {
+            tictactoe.getBoard().displayBoard();
+
             if(counter % 2 == 0) {
                 Player.makeMove(tictactoe);
 
@@ -40,6 +43,7 @@ public class ConsoleGame {
             }
             else {
                 // MiniMax.makeMove(tictactoe);
+                System.out.println("X's move. AI makes a decision");
                 MiniMaxAlphaBeta.makeMove(tictactoe);
                 // RandomAI.makeMove(tictactoe);
 
@@ -50,7 +54,7 @@ public class ConsoleGame {
                 }
             }
             counter++;
-            tictactoe.getBoard().displayBoard();
+            // tictactoe.getBoard().displayBoard();
         }
         tictactoe.getBoard().displayBoard();
         if(tictactoe.isGameOver() && winner == 0)

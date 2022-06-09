@@ -9,12 +9,17 @@ public class MiniMax {
     public static int[] makeMove(Game game) {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
+        int depth = 0;
+        if(game.getBoardSize() > 3) 
+            depth = 3;
+        else    
+            depth = MAX_DEPTH;
 
         for(int i = 0; i < game.getBoardSize(); ++i) {
             for(int j = 0; j < game.getBoardSize(); ++j) {
                 if(!game.isPlaceTaken(i, j)) {
                     game.setElement(Mark.X, i, j);
-                    int moveValue = miniMax(game, MAX_DEPTH, false);
+                    int moveValue = miniMax(game, depth, false);
                     game.changeElement(Mark.BLANK, i, j);
                     if(moveValue > bestValue) {
                         bestValue = moveValue;

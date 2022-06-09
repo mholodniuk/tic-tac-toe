@@ -2,12 +2,8 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 
-import Game.Game;
-import Game.Mark;
-
-// import Players.MiniMax;
-import Players.MiniMaxAlphaBeta;
-// import Players.RandomAI;
+import Game.*;
+import Players.*;
 
 
 public  class WindowGame {
@@ -15,7 +11,7 @@ public  class WindowGame {
         SwingUtilities.invokeLater(new Runnable() {
            @Override
            public void run() {
-                TicTacToe window = new TicTacToe(3, 3);
+                TicTacToe window = new TicTacToe(4, 4);
                 window.setTitle("Tic Tac Toe");
                 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 window.setBounds(300, 300, 500, 500);
@@ -42,7 +38,8 @@ public  class WindowGame {
                         if(game.setElement(Mark.O, iCopy, jCopy)) {
                             System.out.println("Player successfully placed mark at {row: " + iCopy + " col: " + jCopy + "}\n");
                             buttons[iCopy][jCopy].setText("O");
-                            checkCurrentState(Mark.O);
+
+                            checkIfWinOrDraw(Mark.O);
 
                             makeAIMove();
                         }
@@ -57,6 +54,7 @@ public  class WindowGame {
         public void makeAIMove() {
             System.out.println("Minimax starts calculating");
             int[] result = MiniMaxAlphaBeta.makeMove(game);
+            // int[] result = MiniMax.makeMove(game);
             System.out.println("Minimax placed mark at {row: " + result[0] + " col: " + result[1] + "}\n");
             buttons[result[0]][result[1]].setText("X");
 
@@ -68,10 +66,10 @@ public  class WindowGame {
                 System.exit(0);
             }
 
-            checkCurrentState(Mark.X);
+            checkIfWinOrDraw(Mark.X);
         }
 
-        private void checkCurrentState(Mark mark) {
+        private void checkIfWinOrDraw(Mark mark) {
             if(game.isGameOver()) {
                 JOptionPane.showMessageDialog(this, "Tie! The window is about to close",
                 "Game result", JOptionPane.INFORMATION_MESSAGE);
@@ -79,7 +77,7 @@ public  class WindowGame {
                 System.exit(0);
             }
 
-            String currentPlayer = mark == Mark.O ? "Player" : "Computer";
+            String currentPlayer = (mark == Mark.O) ? "Player" : "Computer";
             if(game.checkWin(mark)) {
                 JOptionPane.showMessageDialog(this, currentPlayer + " won! The window is about to close",
                 "Game result", JOptionPane.INFORMATION_MESSAGE);
