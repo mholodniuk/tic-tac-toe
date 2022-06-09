@@ -5,7 +5,9 @@ import java.awt.*;
 import Game.Game;
 import Game.Mark;
 
-import Players.MiniMax;
+// import Players.MiniMax;
+import Players.MiniMaxAlphaBeta;
+// import Players.RandomAI;
 
 
 public  class WindowGame {
@@ -25,7 +27,6 @@ public  class WindowGame {
     static class TicTacToe extends JFrame {
         private JButton buttons[][];
         private Game game;
-        // private boolean isPlayersTurn = true;
     
         public TicTacToe(int size, int winCondition) {
             game = new Game(size, winCondition);
@@ -41,22 +42,10 @@ public  class WindowGame {
                         if(game.setElement(Mark.O, iCopy, jCopy)) {
                             System.out.println("Player successfully placed mark at {row: " + iCopy + " col: " + jCopy + "}\n");
                             buttons[iCopy][jCopy].setText("O");
-    
-                            if(game.isGameOver()) {
-                                JOptionPane.showMessageDialog(this, "Tie! The window is about to close",
-                                "Game result", JOptionPane.INFORMATION_MESSAGE);
-                                System.out.println("Tie");
-                                System.exit(0);
-                            }
+                            checkCurrentState(Mark.O);
 
-                            if(game.checkWin(Mark.O)) {
-                                JOptionPane.showMessageDialog(this, "Player won! The window is about to close",
-                                    "Game result", JOptionPane.INFORMATION_MESSAGE);
-                                System.out.println("Player won");
-                                System.exit(0);
-                            }
                             makeAIMove();
-                        } 
+                        }
                         else
                             System.out.println("Could not place mark at (" + iCopy + " " + jCopy + "), this place is already taken");
                     });
@@ -67,7 +56,7 @@ public  class WindowGame {
 
         public void makeAIMove() {
             System.out.println("Minimax starts calculating");
-            int[] result = MiniMax.makeMove(game);
+            int[] result = MiniMaxAlphaBeta.makeMove(game);
             System.out.println("Minimax placed mark at {row: " + result[0] + " col: " + result[1] + "}\n");
             buttons[result[0]][result[1]].setText("X");
 
@@ -78,11 +67,30 @@ public  class WindowGame {
                 
                 System.exit(0);
             }
+
+            checkCurrentState(Mark.X);
+        }
+
+        private void checkCurrentState(Mark mark) {
+            if(game.isGameOver()) {
+                JOptionPane.showMessageDialog(this, "Tie! The window is about to close",
+                "Game result", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Tie");
+                System.exit(0);
+            }
+
+            String currentPlayer = mark == Mark.O ? "Player" : "Computer";
+            if(game.checkWin(mark)) {
+                JOptionPane.showMessageDialog(this, currentPlayer + " won! The window is about to close",
+                "Game result", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(currentPlayer + " won");
+                System.exit(0);
+            }
         }
 
         private JButton createButton() {
             JButton button = new JButton();
-            button.setFont(new FontUIResource("Arial", Font.PLAIN, 50));
+            button.setFont(new FontUIResource("Arial", Font.PLAIN, (70 - (game.getBoardSize() - 3) * 10 )));
             button.setBackground(Color.WHITE);
             button.setFocusable(false);
             return button;

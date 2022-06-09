@@ -1,10 +1,28 @@
+import java.util.Scanner;
+
 import Game.*;
 import Players.*;
 
 public class ConsoleGame {
 
     public static void main(String[] args) {
-        Game tictactoe = new Game(4, 4);
+
+        int size = 0, winCondition = 0;
+        try {
+            Scanner in = new Scanner(System.in);
+
+            System.out.print("Enter size of your board: ");
+            size = in.nextInt();
+            System.out.print("Enter win condition (must be equal or smaller than your board size): ");
+            winCondition = in.nextInt();
+            // in.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        Game tictactoe = new Game(size, winCondition);
 
         int counter = 0;
         int winner = 0;

@@ -10,7 +10,7 @@ public class RandomAI{
     private RandomAI() {
     }
     
-    public static int[] makeMove(Game game, Mark mark) {
+    public static int[] makeMove(Game game) {
         ArrayList<int[]> availableMoves = new ArrayList<>();
 
         for(int i = 0; i < game.getBoardSize(); ++i) {
@@ -22,7 +22,7 @@ public class RandomAI{
         }
         int index = (int)(Math.random() * availableMoves.size());
         int randomMove[] = new int[]{availableMoves.get(index)[0], availableMoves.get(index)[1]};
-        game.setElement(mark, randomMove[0], randomMove[1]);
+        game.setElement(Mark.X, randomMove[0], randomMove[1]);
         
         return randomMove;
     }

@@ -7,8 +7,10 @@ public class Game {
     private final int WIN_CONDITION;
 
     public Game(int boardSize, int winCondition) {
+        if(boardSize < 3 || boardSize > 10)
+            throw new IllegalArgumentException("Incorrect board size");
         if(boardSize < winCondition)
-            throw new IllegalArgumentException("Winnig number can not exceed board size!");
+            throw new IllegalArgumentException("Winning number can not exceed board size!");
 
         BOARD_SIZE = boardSize;
         WIN_CONDITION = winCondition;
