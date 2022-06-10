@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.util.concurrent.ExecutionException;
 
 import Game.*;
 import Players.*;
@@ -23,8 +24,10 @@ public  class WindowGame {
     static class TicTacToe extends JFrame {
         private JButton buttons[][];
         private Game game;
+        private boolean playersTurn = true;
     
         public TicTacToe(int size, int winCondition) {
+            super();
             game = new Game(size, winCondition);
             buttons = new JButton[size][size];
             setLayout(new GridLayout(size, size));
@@ -35,38 +38,55 @@ public  class WindowGame {
                     final int iCopy = i;
                     final int jCopy = j;
                     buttons[i][j].addActionListener(event -> {
-                        if(game.setElement(Mark.O, iCopy, jCopy)) {
-                            System.out.println("Player successfully placed mark at {row: " + iCopy + " col: " + jCopy + "}\n");
-                            buttons[iCopy][jCopy].setText("O");
+                        if(playersTurn) {
+                            if(game.setElement(Mark.O, iCopy, jCopy)) {
+                                System.out.println("Player successfully placed mark at {row: " + iCopy + " col: " + jCopy + "}\n");
+                                buttons[iCopy][jCopy].setText("O");
+                                checkIfWinOrDraw(Mark.O);
 
-                            checkIfWinOrDraw(Mark.O);
+                                runMiniMaxThread();
+                                playersTurn = false;
+                            }
+                            else
+                                System.out.println("Could not place mark at (" + iCopy + " " + jCopy + "), this place is already taken");
 
-                            makeAIMove();
+                            // start();   
                         }
-                        else
-                            System.out.println("Could not place mark at (" + iCopy + " " + jCopy + "), this place is already taken");
                     });
                     add(buttons[i][j]);
                 }
             }
         }
 
-        public void makeAIMove() {
+        public Integer[] makeAIMove() {
             System.out.println("Minimax starts calculating");
-            int[] result = MiniMaxAlphaBeta.makeMove(game);
-            // int[] result = MiniMax.makeMove(game);
+            Integer[] result = MiniMaxAlphaBeta.makeMove(game);
             System.out.println("Minimax placed mark at {row: " + result[0] + " col: " + result[1] + "}\n");
-            buttons[result[0]][result[1]].setText("X");
+            return result;
+        }
 
-            if(game.checkWin(Mark.X)) {
-                JOptionPane.showMessageDialog(this, "Computer won! The window is about to close",
-                "Game result", JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("Computer won");
-                
-                System.exit(0);
-            }
+        private void runMiniMaxThread() {
+            SwingWorker<Integer[], Void> thread = new SwingWorker<>() {
+                @Override
+                protected Integer[] doInBackground() throws Exception {
+                    return makeAIMove();
+                }
 
-            checkIfWinOrDraw(Mark.X);
+                @Override
+                protected void done() {
+                    Integer[] result;
+                    try {
+                        result = get();
+                        buttons[result[0]][result[1]].setText("X");
+                        checkIfWinOrDraw(Mark.X);
+                        playersTurn = true;
+                    } 
+                    catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            thread.execute();
         }
 
         private void checkIfWinOrDraw(Mark mark) {

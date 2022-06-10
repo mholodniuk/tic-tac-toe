@@ -1,4 +1,3 @@
-import java.io.OutputStream;
 import java.util.Scanner;
 
 import Game.*;
