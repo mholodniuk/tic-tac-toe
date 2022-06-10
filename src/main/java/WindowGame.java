@@ -12,7 +12,7 @@ public  class WindowGame {
         SwingUtilities.invokeLater(new Runnable() {
            @Override
            public void run() {
-                TicTacToe window = new TicTacToe(4, 3);
+                TicTacToe window = new TicTacToe(4, 4);
                 window.setTitle("Tic Tac Toe");
                 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 window.setBounds(300, 300, 500, 500);
@@ -78,6 +78,10 @@ public  class WindowGame {
                     Integer[] result;
                     try {
                         result = get();
+                        if(result == null) {
+                            System.out.println("Something went horribly wrong!");
+                            System.exit(1);
+                        }
                         buttons[result[0]][result[1]].setText("X");
                         checkIfWinOrDraw(Mark.X);
                         playersTurn = true;
