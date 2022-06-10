@@ -12,7 +12,7 @@ public  class WindowGame {
         SwingUtilities.invokeLater(new Runnable() {
            @Override
            public void run() {
-                TicTacToe window = new TicTacToe(4, 4);
+                TicTacToe window = new TicTacToe(4, 3);
                 window.setTitle("Tic Tac Toe");
                 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 window.setBounds(300, 300, 500, 500);
@@ -48,9 +48,7 @@ public  class WindowGame {
                                 playersTurn = false;
                             }
                             else
-                                System.out.println("Could not place mark at (" + iCopy + " " + jCopy + "), this place is already taken");
-
-                            // start();   
+                                System.out.println("Could not place mark at (" + iCopy + " " + jCopy + "), this place is already taken"); 
                         }
                     });
                     add(buttons[i][j]);
@@ -69,7 +67,10 @@ public  class WindowGame {
             SwingWorker<Integer[], Void> thread = new SwingWorker<>() {
                 @Override
                 protected Integer[] doInBackground() throws Exception {
-                    return makeAIMove();
+                    if(!playersTurn)
+                        return makeAIMove();
+                    else 
+                        return null;
                 }
 
                 @Override

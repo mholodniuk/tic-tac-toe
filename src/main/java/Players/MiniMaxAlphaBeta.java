@@ -5,7 +5,7 @@ import Game.Mark;
 
 public class MiniMaxAlphaBeta {
 
-    private static final int MAX_DEPTH = 8;
+    private static final int MAX_DEPTH = 10;
 
     public static Integer[] makeMove(Game game) {
         Integer[] bestMove = new Integer[]{-1, -1};
