@@ -44,8 +44,8 @@ public  class WindowGame {
                                 buttons[iCopy][jCopy].setText("O");
                                 checkIfWinOrDraw(Mark.O);
 
-                                runMiniMaxThread();
                                 playersTurn = false;
+                                runMiniMaxThread();
                             }
                             else
                                 System.out.println("Could not place mark at (" + iCopy + " " + jCopy + "), this place is already taken"); 

@@ -6,8 +6,8 @@ public class MiniMax {
     
     private static final int MAX_DEPTH = 5;
 
-    public static int[] makeMove(Game game) {
-        int[] bestMove = new int[]{-1, -1};
+    public static Integer[] makeMove(Game game) {
+        Integer[] bestMove = new Integer[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
         int depth = 0;
         if(game.getBoardSize() > 3) 

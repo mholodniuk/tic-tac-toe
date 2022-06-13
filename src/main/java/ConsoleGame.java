@@ -15,7 +15,6 @@ public class ConsoleGame {
             size = in.nextInt();
             System.out.print("Enter win condition (must be equal or smaller than your board size): ");
             winCondition = in.nextInt();
-            // in.close();
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -26,7 +25,6 @@ public class ConsoleGame {
 
         int counter = 0;
         int winner = 0;
-        // tictactoe.getBoard().displayBoard();
 
         while(!tictactoe.isGameOver()) {
             tictactoe.getBoard().displayBoard();
