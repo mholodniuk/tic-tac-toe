@@ -1,6 +1,6 @@
 package Game;
 
-// klasa modelująca tablicę do gry w kółko i krzyżyk
+
 public class Board {
     private final int SIZE;
     private Mark[][] board;

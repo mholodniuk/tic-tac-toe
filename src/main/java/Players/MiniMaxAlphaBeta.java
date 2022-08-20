@@ -40,7 +40,7 @@ public class MiniMaxAlphaBeta {
     private static int miniMax(Game game, int alpha, int beta, int depth, boolean isMaximizing) {
         int boardValue = 0;
         if(game.checkWin(Mark.X)) {
-            boardValue = +1;
+            boardValue = 1;
         }  
         if(game.checkWin(Mark.O)) {
             boardValue = -1;
@@ -83,9 +83,5 @@ public class MiniMaxAlphaBeta {
             }
             return minEvaluation;
         }
-    }
-
-    public int calculateScore(Game game) {
-        return 0;
     }
 }

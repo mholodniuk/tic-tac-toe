@@ -20,6 +20,5 @@ public class Player {
             row = in.nextInt();
             col = in.nextInt();
         }
-        // in.close();
     }
 }

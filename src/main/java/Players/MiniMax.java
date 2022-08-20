@@ -34,7 +34,6 @@ public class MiniMax {
     }
 
     private static int miniMax(Game game, int depth, boolean isMaximizing) {
-        // zwrócenie wartości aktualnej tablicy jeśli koniec gry
         int boardValue = 0;
         if(game.checkWin(Mark.X)) {
             boardValue = +1;
@@ -42,7 +41,6 @@ public class MiniMax {
         if(game.checkWin(Mark.O)) {
             boardValue = -1;
         }
-        // sprawdzenie czy nie osiągnięto maksimum głębokości
         if(Math.abs(boardValue) == 1 || depth == 0 || game.isGameOver()) {
             return boardValue;
         }
@@ -81,10 +79,8 @@ public class MiniMax {
     public static void main(String[] args) {
         Game game = new Game(3, 3);
 
-        // ruch minimaxa
         MiniMax.makeMove(game);
 
-        // game.setElement(Mark.X, result[0], result[1]);
         game.getBoard().displayBoard();
     }
 }

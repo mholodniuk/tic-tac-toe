@@ -9,21 +9,18 @@ import Players.*;
 
 public  class WindowGame {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-           @Override
-           public void run() {
-                TicTacToe window = new TicTacToe(4, 4);
-                window.setTitle("Tic Tac Toe");
-                window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                window.setBounds(300, 300, 500, 500);
-                window.setVisible(true);
-            } 
-        });
+        SwingUtilities.invokeLater(() -> {
+             TicTacToe window = new TicTacToe(4, 4);
+             window.setTitle("Tic Tac Toe");
+             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+             window.setBounds(300, 300, 500, 500);
+             window.setVisible(true);
+         });
     }
 
     static class TicTacToe extends JFrame {
-        private JButton buttons[][];
-        private Game game;
+        private final JButton[][] buttons;
+        private final Game game;
         private boolean playersTurn = true;
     
         public TicTacToe(int size, int winCondition) {
@@ -66,7 +63,7 @@ public  class WindowGame {
         private void runMiniMaxThread() {
             SwingWorker<Integer[], Void> thread = new SwingWorker<>() {
                 @Override
-                protected Integer[] doInBackground() throws Exception {
+                protected Integer[] doInBackground() {
                     if(!playersTurn)
                         return makeAIMove();
                     else 
